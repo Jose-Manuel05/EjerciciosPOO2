@@ -1,4 +1,4 @@
-package org.example.SistemaPagoP1;
+package SistemaPagoP1;
 
 public class PayPal extends MetodoPago{
 
