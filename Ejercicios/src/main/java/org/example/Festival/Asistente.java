@@ -2,9 +2,9 @@ package org.example.Festival;
 
 public class Asistente extends Persona {
 
-    private String entrada; //tipo de entrada (General, VIP, etc.)
+    private TipoEntrada entrada; //tipo de entrada (General, VIP, etc.)
 
-    public Asistente(String nombre, int edad, String entrada) {
+    public Asistente(String nombre, int edad, TipoEntrada entrada) {
         super(nombre, edad); //llamamos al constructor de la clase Persona
         this.entrada = entrada;
     }
