@@ -18,12 +18,27 @@ public class CuentaBancaria {
     }
 
     //endregion
-    
+
     public void ingresarDinero(double cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad a ingresar debe ser mayor que 0");
+        }
+        if (cantidad > 3000) {
+            throw new DepositoMaximoException();
+        }
         saldo += cantidad;
     }
 
     public void retirarDinero(double cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad a retirar debe ser mayor que 0");
+        }
+        if (cantidad > 600) {
+            throw new LimiteDiarioException();
+        }
+        if (cantidad > saldo) {
+            throw new SladoInsuficienteException();
+        }
         saldo -= cantidad;
     }
 
