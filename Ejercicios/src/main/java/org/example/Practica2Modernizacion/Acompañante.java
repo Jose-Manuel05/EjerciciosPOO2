@@ -11,6 +11,23 @@ public class Acompañante extends MutxamelFC{
         this.parentesco = parentesco;
     }
 
+    //Getters y Setters
+    public Jugador getIntegrante() {
+        return integrante;
+    }
+
+    public void setIntegrante(Jugador integrante) {
+        this.integrante = integrante;
+    }
+
+    public String getParentesco() {
+        return parentesco;
+    }
+
+    public void setParentesco(String parentesco) {
+        this.parentesco = parentesco;
+    }
+
     public void animarEquipo(){
         System.out.println("El acompañante " + getNombre() + " está animando a " + integrante.getNombre());
     }

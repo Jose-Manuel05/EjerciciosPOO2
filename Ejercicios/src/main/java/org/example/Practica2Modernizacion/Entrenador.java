@@ -2,7 +2,7 @@ package org.example.Practica2Modernizacion;
 
 public class Entrenador extends MutxamelFC implements AccionesDeportivas{
 
-    private Equipos equipo;
+    private Equipos     equipo;
     private String formacionPreferida;
 
     public Entrenador(String nombre, int edad,Equipos equipo, String formacionPreferida) {
@@ -10,6 +10,23 @@ public class Entrenador extends MutxamelFC implements AccionesDeportivas{
         this.equipo = equipo;
         this.formacionPreferida = formacionPreferida;
         FormacionPreferida(formacionPreferida);
+    }
+
+    //Getters y Setters
+    public Equipos getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipos equipo) {
+        this.equipo = equipo;
+    }
+
+    public String getFormacionPreferida() {
+        return formacionPreferida;
+    }
+
+    public void setFormacionPreferida(String formacionPreferida) {
+        this.formacionPreferida = formacionPreferida;
     }
 
     public void FormacionPreferida(String formacionPreferida) {

@@ -13,14 +13,12 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas {
         this.posicion = posicion;
 
     }
-
-    //region Getters y Setters
-
-    private Equipos getCategoria() {
+    //Getters y Setters
+    public Equipos getCategoria() {
         return categoria;
     }
 
-    private void setCategoria(Equipos categoria) {
+    public void setCategoria(Equipos categoria) {
         this.categoria = categoria;
     }
 
@@ -28,14 +26,17 @@ public class Jugador extends MutxamelFC implements AccionesDeportivas {
         return dorsal;
     }
 
-    private void setDorsal(int dorsal) {
-        if (this.dorsal == dorsal){
-            throw new DorsalDuplicadoException();
-        }
+    public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
     }
 
-    //endregion
+    public Posiciones getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Posiciones posicion) {
+        this.posicion = posicion;
+    }
 
     public void calentar() {
         System.out.println("El jugador " + getNombre() + " está calentando");

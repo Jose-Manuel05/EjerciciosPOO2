@@ -1,27 +1,35 @@
 package org.example.Practica2Modernizacion;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class AppMutxamelFC {
+
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         ArrayList<Jugador> jugadores = new ArrayList<>();
 
-        // crear varios jugadores para el equipo SENIOR
-        Jugador jugador1 = new Jugador("Carlos", 25, Equipos.SENIOR, 5, Posiciones.DEFENSA);
-        Jugador jugador2 = new Jugador("David", 24, Equipos.SENIOR, 10, Posiciones.CENTROCAMPISTA);
+        // Crear varios jugadores para el equipo SENIOR
+        Jugador jugador1 = new Jugador("Jugador1", 25, Equipos.SENIOR, 10, Posiciones.DELANTERO);
+        Jugador jugador2 = new Jugador("Jugador2", 27, Equipos.SENIOR, 12, Posiciones.DEFENSA);
+        Jugador jugador3 = new Jugador("Jugador3", 22, Equipos.ALEVÍN, 11, Posiciones.PORTERO);
 
-        jugadores.add(jugador1);
-        jugadores.add(jugador2);
+        // Agregar los jugadores al equipo mas comprobación de dorsal duplicado
+        try {
+            agregarJugador(jugadores, jugador1);
+            agregarJugador(jugadores, jugador2);
+            agregarJugador(jugadores, jugador3);
+        } catch (DorsalDuplicadoException e) {
+            throw new DorsalDuplicadoException();
+        }
 
-        comprobarDorsales(jugadores);
-
-        // crear al entrenador del equipo SENIOR
+        // Crear al entrenador del equipo SENIOR
         Entrenador entrenador = new Entrenador("Juan", 45, Equipos.SENIOR, "4-4-2");
-        // crear a los masajistas del club
+        // Crear a los masajistas del club
         Masajista masajista1 = new Masajista("Ana", 35, "Fisioterapia", 10);
         Masajista masajista2 = new Masajista("Marta", 40, "Osteopatía", 15);
-        // crear a algún acompañante para un par de jugadores
+        // Crear a algún acompañante para un par de jugadores
         Acompañante acompañante1 = new Acompañante("Laura", 27, jugador1, "Esposa");
         Acompañante acompañante2 = new Acompañante("Sofia", 29, jugador2, "Hermana");
 
@@ -37,7 +45,7 @@ public class AppMutxamelFC {
         jugador1.entrenar();
         entrenador.entrenar();
         // darMasaje() a algún jugador
-         masajista1.darMasaje(jugador1);
+        masajista1.darMasaje(jugador1);
         // viajar() a Madrid
         jugador1.viajar("Madrid");
         entrenador.viajar("Madrid");
@@ -76,18 +84,15 @@ public class AppMutxamelFC {
 
     }
 
-    private static void comprobarDorsales(ArrayList<Jugador> jugadores) {
-        for (int i = 0; i < jugadores.size(); i++) {
-            int dorsalActual = jugadores.get(i).getDorsal();
-
-            for (int j = i + 1; j < jugadores.size(); j++) {
-                int dorsalComparar = jugadores.get(j).getDorsal();
-
-                if (dorsalActual == dorsalComparar) {
-                    throw new DorsalDuplicadoException();
-                }
+    private static void agregarJugador(ArrayList<Jugador> jugadores, Jugador jugador) {
+        for (Jugador j : jugadores) {
+            if (j.getDorsal() == jugador.getDorsal()) {
+                throw new DorsalDuplicadoException();
             }
         }
+        jugadores.add(jugador);
     }
+
+
 
 }

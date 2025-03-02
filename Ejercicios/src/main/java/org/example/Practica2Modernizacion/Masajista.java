@@ -11,6 +11,23 @@ public class Masajista extends MutxamelFC {
         this.anyosExperiencia = anyosExperiencia;
     }
 
+    //Getters y Settersç
+    public String getTitulacion() {
+        return titulacion;
+    }
+
+    public void setTitulacion(String titulacion) {
+        this.titulacion = titulacion;
+    }
+
+    public int getAnyosExperiencia() {
+        return anyosExperiencia;
+    }
+
+    public void setAnyosExperiencia(int anyosExperiencia) {
+        this.anyosExperiencia = anyosExperiencia;
+    }
+
     public void darMasaje(Jugador jugador){
         System.out.println("El masajista " + getNombre() + " está dando un masaje a " + jugador.getNombre());
     }
