@@ -33,57 +33,202 @@ public class AppMutxamelFC {
         Acompañante acompañante1 = new Acompañante("Laura", 27, jugador1, "Esposa");
         Acompañante acompañante2 = new Acompañante("Sofia", 29, jugador2, "Hermana");
 
-        // concentrarse()
-        jugador1.concentrarse();
-        jugador2.concentrarse();
-        entrenador.concentrarse();
-        masajista1.concentrarse();
-        masajista2.concentrarse();
-        acompañante1.concentrarse();
-        acompañante2.concentrarse();
-        // entrenar()
-        jugador1.entrenar();
-        entrenador.entrenar();
-        // darMasaje() a algún jugador
-        masajista1.darMasaje(jugador1);
-        // viajar() a Madrid
-        jugador1.viajar("Madrid");
-        entrenador.viajar("Madrid");
-        masajista1.viajar("Madrid");
-        // planificarEntrenamiento()
-        entrenador.planificarEntrenamiento();
-        // entrenar()
-        jugador1.entrenar();
-        entrenador.entrenar();
-        // descansar()
-        jugador1.descansar();
-        // calentar()
-        jugador1.calentar();
-        // jugarPartido()
-        jugador1.jugarPartido("Elche");
-        entrenador.jugarPartido("Elche");
-        // animarEquipo()
-        acompañante1.animarEquipo();
-        // hacerCambios()
-        entrenador.hacerCambios();
-        // marcarGol()
-        jugador1.marcarGol();
-        // celebrarGol()
-        jugador1.celebrarGol();
-        entrenador.celebrarGol();
-        acompañante1.celebrarGol();
-        // darMasaje() a varios jugadores
-        masajista1.darMasaje(jugador1);
-        masajista2.darMasaje(jugador2);
-        // viajar() a Mutxamel
-        jugador1.viajar("Mutxamel");
-        entrenador.viajar("Mutxamel");
-        masajista1.viajar("Mutxamel");
-        // descansar()
-        jugador1.descansar();
+        System.out.println("\n=============================================");
+
+        //Menu de la aplicación
+        int opcion;
+
+        do {
+            mostrarMenuPrincipal();
+            opcion = scanner.nextInt();
+            switch (opcion) {
+                case 1:
+                    mantenimientoJugadores(scanner, jugadores);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 'X':
+                    System.out.println("Saliendo de la aplicación...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        } while (opcion != 5);
 
     }
 
+    private static void mostrarMenuPrincipal() {
+        System.out.println("--- App de mantenimiento del MUTXAMEL FC ---");
+        System.out.println("[1]. Mantenimiento de jugadores");
+        System.out.println("[2]. Mantenimiento de entrenadores");
+        System.out.println("[3]. Mantenimiento de masajistas");
+        System.out.println("[4]. Consultar equipos");
+        System.out.println("[X]. Salir");
+        System.out.println("=============================================");
+        System.out.print("Selecciona una opción: ");
+    }
+
+    private static void mantenimientoJugadores(Scanner scanner, ArrayList<Jugador> jugadores) {
+        int opcion;
+
+        do {
+            mostrarMenuJugadores();
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    anadirJugador(scanner, jugadores);
+                    break;
+                case 2:
+                    modificarJugador(scanner, jugadores);
+                    break;
+                case 3:
+                    crearAcompanante(scanner, jugadores);
+                    break;
+                case 'X':
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Inténtalo de nuevo.");
+            }
+        } while (opcion != 4);
+    }
+
+    private static void mostrarMenuJugadores() {
+        System.out.println("=== Mantenimiento de Jugadores ===");
+        System.out.println("[1]. Añadir nuevo jugador");
+        System.out.println("[2]. Modificar datos de jugador existente");
+        System.out.println("[3]. Crear acompañantes (sólo seniors)");
+        System.out.println("[X]. Volver al menú principal");
+        System.out.println("===================================");
+        System.out.print("Selecciona una opción: ");
+    }
+
+    private static void anadirJugador(Scanner scanner, ArrayList<Jugador> jugadores) {
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Edad: ");
+        int edad = scanner.nextInt();
+
+        System.out.print("Categoría (INFANTIL, BENJAMIN, SENIOR): ");
+        String categoria = scanner.nextLine();
+
+        System.out.print("Dorsal: ");
+        int dorsal = scanner.nextInt();
+
+        System.out.print("Posición: ");
+        String posicion = scanner.nextLine();
+
+        try {
+            Jugador jugador = new Jugador(nombre, edad, Equipos.valueOf(categoria.toUpperCase()), dorsal, Posiciones.valueOf(posicion.toUpperCase()));
+            jugadores.add(jugador);
+            System.out.println("Jugador añadido con éxito.");
+        } catch (DorsalDuplicadoException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void modificarJugador(Scanner scanner, ArrayList<Jugador> jugadores) {
+        if (jugadores.isEmpty()) {
+            System.out.println("No hay jugadores para modificar.");
+            return;
+        }
+
+        System.out.println("=== Lista de Jugadores ===");
+        for (int i = 0; i < jugadores.size(); i++) {
+            System.out.println("[" + i + "] " + jugadores.get(i));
+        }
+        System.out.print("Selecciona un jugador para modificar --> ");
+        int indice = scanner.nextInt();
+
+        if (indice < 0 || indice >= jugadores.size()) {
+            System.out.println("Índice no válido.");
+            return;
+        }
+
+        Jugador jugador = jugadores.get(indice);
+        System.out.println("Modificando jugador: " + jugador);
+        System.out.print("¿Qué quieres modificar? [nombre,edad,categoría,dorsal,posicion]: ");
+        String campo = scanner.nextLine();
+
+        switch (campo.toLowerCase()) {
+            case "nombre":
+                System.out.print("Nuevo nombre: ");
+                String nuevoNombre = scanner.nextLine();
+                jugador.setNombre(nuevoNombre);
+                break;
+            case "edad":
+                System.out.print("Nueva edad: ");
+                int nuevaEdad = scanner.nextInt();
+                jugador.setEdad(nuevaEdad);
+                break;
+            case "categoría":
+                System.out.print("Nueva categoría (INFANTIL, BENJAMIN, SENIOR): ");
+                String nuevaCategoria = scanner.nextLine();
+                jugador.setCategoria(Equipos.valueOf(nuevaCategoria));
+                break;
+            case "dorsal":
+                System.out.print("Nuevo dorsal: ");
+                int nuevoDorsal = scanner.nextInt();
+                try {
+                    jugador.setDorsal(nuevoDorsal);
+                } catch (DorsalDuplicadoException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "posicion":
+                System.out.print("Nueva posición: ");
+                String nuevaPosicion = scanner.nextLine();
+                jugador.setPosicion(Posiciones.valueOf(nuevaPosicion));
+                break;
+            default:
+                System.out.println("Campo no válido.");
+        }
+    }
+
+    private static void crearAcompanante(Scanner scanner, ArrayList<Jugador> jugadores) {
+        ArrayList<Jugador> jugadoresSenior = new ArrayList<>();
+        for (Jugador jugador : jugadores) {
+            if (jugador.getCategoria() == Equipos.SENIOR) {
+                jugadoresSenior.add(jugador);
+            }
+        }
+
+        if (jugadoresSenior.isEmpty()) {
+            System.out.println("No hay jugadores SENIOR para asignar acompañantes.");
+            return;
+        }
+
+        System.out.println("Lista de Jugadores SENIOR");
+        for (int i = 0; i < jugadoresSenior.size(); i++) {
+            System.out.println("[" + i + "] " + jugadoresSenior.get(i));
+        }
+        System.out.print("Selecciona un jugador para asignar un acompañante --> ");
+        int indice = scanner.nextInt();
+
+        if (indice < 0 || indice >= jugadoresSenior.size()) {
+            System.out.println("Índice no válido.");
+            return;
+        }
+
+        Jugador jugadorSeleccionado = jugadoresSenior.get(indice);
+
+        System.out.print("Nombre del acompañante: ");
+        String nombreAcompanante = scanner.nextLine();
+        System.out.print("Edad del acompañante: ");
+        int edadAcompanante = scanner.nextInt();
+        System.out.print("Relación con el jugador (ej: Esposa, Hermano, Amigo): ");
+        String relacion = scanner.nextLine();
+
+        Acompañante acompañante = new Acompañante(nombreAcompanante, edadAcompanante, jugadorSeleccionado, relacion);
+        System.out.println("Acompañante creado con éxito: " + acompañante);
+    }
+    
     private static void agregarJugador(ArrayList<Jugador> jugadores, Jugador jugador) {
         for (Jugador j : jugadores) {
             if (j.getDorsal() == jugador.getDorsal()) {
